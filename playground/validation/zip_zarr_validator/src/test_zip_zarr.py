@@ -12,7 +12,7 @@ import zarr
 from zarr.storage import ZipStore
 import zipfile
 
-from playground.zarr_python.src.zip_zarr_test import zip_zarr_write
+from playground.zarr_python.src.zip_zarr import zip_zarr_write
 
 
 class ZipZarrValidator:
