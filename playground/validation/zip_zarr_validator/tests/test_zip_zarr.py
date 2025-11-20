@@ -6,12 +6,12 @@ from playground.validation.zip_zarr_validator.src.ZipZarrValidator import ZipZar
 
 ids = [
     'generated',
-    '6001240'
+#    '6001240'
 ]
 
 params = [
     {'uri': 'test.ozx', 'data': np.random.rand(100, 100), 'dim_order': 'yx', 'pixel_size': {'x': 1, 'y': 1}},
-    {'uri': 'D:/slides/ozx/6001240.ozx'}
+#    {'uri': 'D:/slides/ozx/6001240.ozx'}
 ]
 
 
