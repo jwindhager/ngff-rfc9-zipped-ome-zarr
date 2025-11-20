@@ -4,27 +4,24 @@ import pytest
 from playground.validation.zip_zarr_validator.src.ZipZarrValidator import ZipZarrValidator
 
 
-test_ids = [
-    'created',
-    '6001240'
-]
-test_params = [
+params = [
     {'uri': 'test.ozx', 'data': np.random.rand(100, 100), 'dim_order': 'yx', 'pixel_size': {'x': 1, 'y': 1}},
-    {'uri': 'C:/Project/slides/ozx/6001240.ozx'}
+    {'uri': 'D:/slides/ozx/6001240.ozx'}
 ]
 
-@pytest.fixture()
-def uri(request):
-    return request.config.getoption('--uri')
 
-
+@pytest.mark.parametrize('value', params, scope="class")
 class TestZipZarr:
     # no __init__ for pytest!
 
-    @pytest.fixture(autouse=True, scope="class", ids=test_ids, params=test_params)
+    @pytest.fixture(autouse=True, scope="class")
     @classmethod
-    def setup_and_teardown(self, request) -> None:
-        self.validator = ZipZarrValidator(**request.param)
+    def setup_and_teardown(self, value, uri) -> None:
+        if uri:
+            params = {'uri': uri}
+        else:
+            params = value
+        self.validator = ZipZarrValidator(**params)
         yield
         #self.validator.cleanup()
 
