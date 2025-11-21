@@ -1,0 +1,74 @@
+import numpy as np
+import pytest
+
+from playground.validation.zip_zarr_validator.src.ZipZarrValidator import ZipZarrValidator
+
+
+ids = [
+    'generated',
+#    '6001240'
+]
+
+params = [
+    {'uri': 'test.ozx', 'data': np.random.rand(100, 100), 'dim_order': 'yx', 'pixel_size': {'x': 1, 'y': 1}},
+#    {'uri': 'D:/slides/ozx/6001240.ozx'}
+]
+
+
+@pytest.mark.parametrize('value', params, ids=ids, scope='class')
+class TestZipZarr:
+    # no __init__ for pytest!
+
+    @pytest.fixture(autouse=True, scope='class')
+    @classmethod
+    def setup_and_teardown(self, value, uri) -> None:
+        if uri:
+            params = {'uri': uri}
+        else:
+            params = value
+        self.validator = ZipZarrValidator(**params)
+        yield
+        #self.validator.cleanup()
+
+    def test_requirement12(self):
+        self.validator.test_requirement12()
+
+    def test_requirement3(self):
+        self.validator.test_requirement3()
+
+    def test_requirement4(self):
+        self.validator.test_requirement4()
+
+    def test_recommendation1(self):
+        self.validator.test_recommendation1()
+
+    def test_recommendation2(self):
+        self.validator.test_recommendation2()
+
+    def test_recommendation3(self):
+        self.validator.test_recommendation3()
+
+    def test_recommendation4(self):
+        self.validator.test_recommendation4()
+
+    def test_recommendation5(self):
+        self.validator.test_recommendation5()
+
+    def test_recommendation6(self):
+        self.validator.test_recommendation6()
+
+
+if __name__ == "__main__":
+    uri = 'C:/Project/slides/ozx/6001240.ozx'
+    validator = ZipZarrValidator(uri)
+
+    validator.test_requirement12()
+    validator.test_requirement3()
+    validator.test_requirement4()
+
+    validator.test_recommendation1()
+    validator.test_recommendation2()
+    validator.test_recommendation3()
+    validator.test_recommendation4()
+    validator.test_recommendation5()
+    validator.test_recommendation6()
